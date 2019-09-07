@@ -6,4 +6,4 @@ require('./setup/logging')();
 require('./setup/routes')(app);
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => winston.info('App live and listening on port ${port}'));
+app.listen(port, () => winston.info('App live and listening on port %d', port));
