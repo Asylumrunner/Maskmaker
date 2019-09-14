@@ -637,4 +637,4 @@ module.exports = [
     "Willful",
     "Wishful",
     "Zany"
-]
+];
