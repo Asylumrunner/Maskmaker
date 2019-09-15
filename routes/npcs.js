@@ -20,7 +20,8 @@ router.get('/', (req, res) => {
         winston.error(error);
         res.status(400).send(error.details[0].message);
     }
-    generate.generate(req.body.number).catch((err) => {
+    const reg = (req.body.hasOwnProperty('region')) ? req.body.region : '';
+    generate.generate(req.body.number, reg).catch((err) => {
         res.status(500);
     }).then((response) => {
         res.send(response);
