@@ -40,12 +40,20 @@ async function generateNames(number, region='') {
         request_string += util.format('&region=%s', region);
     }
     try {
-        const response = await axios.get(request_url);
+        var response = await axios.get(request_url);
         if(response.status != 200){
             winston.error("Request to Names API failed");
             throw new Error("Name generation failed");
         }
         var name_list = [];
+
+        //The uinames API does a very stupid thing where if you only ask for a single name
+        //it returns it as a single item, outside of an array. This if statement checks for
+        //that and wraps that single item in an array to ensure proper iteration
+        if(!Array.isArray(response.data)){
+            response.data = [response.data]
+        }
+
         response.data.forEach((name) => {
             name_list.push(unidecode(util.format("%s %s", name.name, name.surname)));
         })
@@ -92,7 +100,6 @@ function generateAttributes(number, attributes = ['Strength', 'Dexterity', 'Cons
             else if (dice_roll == 12){
                 attribute_block[attribute] = "Excellent";
             }
-            console.log("Dice roll was a " + dice_roll + ", so " + attribute + " is " + attribute_block[attribute]);
         })
         attribute_list.push(attribute_block);
     }
