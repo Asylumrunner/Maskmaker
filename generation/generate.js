@@ -38,7 +38,6 @@ async function generateNames(number, region='') {
     var request_url = util.format('http://uinames.com/api/?amount=%d&maxlen=20', number);
     if(region){
         request_url += util.format('&region=%s', region);
-        console.log(request_url);
     }
     try {
         var response = await axios.get(request_url);
