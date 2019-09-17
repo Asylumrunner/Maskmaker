@@ -13,7 +13,15 @@ router.get('/', (req, res) => {
         region: Joi.string()
             .trim()
             .min(1)
-            .max(30)
+            .max(30),
+        gender: Joi.string()
+            .trim()
+            .valid('male', 'female'),
+        attributes: Joi.array()
+            .min(1)
+            .max(12)
+            .unique()
+            .items(Joi.string())
     });
     const { error, value } = schema.validate(req.body);
     if(error){
@@ -21,7 +29,9 @@ router.get('/', (req, res) => {
         res.status(400).send(error.details[0].message);
     }
     const reg = (req.body.hasOwnProperty('region')) ? req.body.region : '';
-    generate.generate(req.body.number, reg).catch((err) => {
+    const gend = (req.body.hasOwnProperty('gender')) ? req.body.gender : '';
+    const atts = (req.body.hasOwnProperty('attributes')) ? req.body.attributes : [];
+    generate.generate(req.body.number, reg, gend, atts).catch((err) => {
         res.status(500);
     }).then((response) => {
         res.send(response);

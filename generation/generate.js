@@ -4,11 +4,11 @@ const util = require('util');
 const unidecode = require('unidecode');
 //const traits = require('./traits')();
 
-module.exports.generate = async function generateCharacters(number, region = '', user_attributes = []) {
+module.exports.generate = async function generateCharacters(number, region = '', gender = '', user_attributes = []) {
     var list_of_characters = [];
     var new_character = {};
     
-    var name_pool = await generateNames(number, region);
+    var name_pool = await generateNames(number, region, gender);
 
     if(user_attributes && user_attributes.length) {
         var attribute_pool = generateAttributes(number, user_attributes);
@@ -34,10 +34,13 @@ module.exports.generate = async function generateCharacters(number, region = '',
     return list_of_characters;
 }
 
-async function generateNames(number, region='') {
+async function generateNames(number, region='', gender = '') {
     var request_url = util.format('http://uinames.com/api/?amount=%d&maxlen=20', number);
     if(region){
         request_url += util.format('&region=%s', region);
+    }
+    if(gender){
+        request_url += util.format('&gender=%s', gender);
     }
     try {
         var response = await axios.get(request_url);
