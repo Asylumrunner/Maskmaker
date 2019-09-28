@@ -11,7 +11,7 @@ module.exports = function() {
           winston.format.splat(),
           winston.format.json()
         ),
-        defaultMeta: { service: 'your-service-name' },
+        defaultMeta: { service: 'Maskmaker' },
         transports: [
           new winston.transports.File({ filename: 'error.log', level: 'error' }),
           new winston.transports.File({ filename: 'combined.log' }),

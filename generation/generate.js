@@ -2,7 +2,7 @@ const winston = require('winston');
 const axios = require('axios');
 const util = require('util');
 const unidecode = require('unidecode');
-//const traits = require('./traits')();
+const traits = require('./traits');
 
 module.exports.generate = async function generateCharacters(number, region = '', gender = '', user_attributes = []) {
     var list_of_characters = [];
@@ -21,12 +21,7 @@ module.exports.generate = async function generateCharacters(number, region = '',
         new_character = {};
 
         new_character.name = name_pool.splice(Math.floor(Math.random() * name_pool.length - 1), 1)[0];
-    //     list_of_traits = [];
-    //     for(var j = 0; j < 3; j++){
-    //         list_of_traits.push(trait_pool.splice(Math.floor(Math.random() * trait_pool.length - 1), 1));
-    //     }
-    //     new_character.traits = list_of_traits;
-
+        new_character.traits = generateTraits(3);
         new_character.attribute = attribute_pool.splice(Math.floor(Math.random() * attribute_pool.length - 1), 1)[0];
         winston.info(util.inspect(new_character, false, null));
         list_of_characters.push(new_character);
@@ -70,13 +65,13 @@ async function generateNames(number, region='', gender = '') {
     
 }
 
-// function generateTraits(number) {
-//     var trait_list = [];
-//     while(trait_list.length < number){
-//         trait_list.push(traits[Math.floor(Math.random() * (traits.length - 1))]);
-//     }
-//     return trait_list;
-// }
+function generateTraits(number) {
+    var trait_list = [];
+    while(trait_list.length < number){
+        trait_list.push(traits[Math.floor(Math.random() * (traits.length - 1))]);
+    }
+    return trait_list;
+}
 
 function generateAttributes(number, attributes = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']){
     var attribute_list = [];
