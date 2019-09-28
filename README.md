@@ -22,3 +22,10 @@ The last aspect of a character are approximate statistical attributes. Most RPGs
 An additional payload feature I would like to include is the ability to provide either a regional preference for the names generated (uinames actually has this feature available), or to provide a list of names at the outset that can be pulled from.
 
 What would be really *really* cool is the ability to provide a reasonably large set of example names and have the API generate a Markov Chain based on them, allowing it to generate unique names conforming to a standard defined by the user. To circumvent repeat calculation, I would probably allow users to, if they so choose, save their name set to a database, or more specifically the Markov Chain modeling their name set, and allow it to be retrieved, such that it doesn't need to be recalculated.
+
+## To-Do List
+* Allow custom names to be provided to choose from
+* Allow custom names to be provided to generate a Markov Chain to generate names
+* Implement tests
+* Convert API to run in AWS Lambda
+* Deploy application to Lambda

@@ -29,6 +29,29 @@ module.exports.generate = async function generateCharacters(number, region = '',
     return list_of_characters;
 }
 
+module.exports.generateWithCustomNames = async function generateCharactersWithCustomNames(number, names, user_attributes = []) {
+    var list_of_characters = [];
+    var new_character = {};
+
+    if(user_attributes && user_attributes.length) {
+        var attribute_pool = generateAttributes(number, user_attributes);
+    }
+    else {
+        var attribute_pool = generateAttributes(number);
+    }
+
+    for(var i = 0; i < number; i++) {
+        new_character = {};
+        
+        new_character.name = names.splice(Math.floor(Math.random() * names.length - 1), 1)[0];
+        new_character.traits = generateTraits(3);
+        new_character.attribute = attribute_pool.splice(Math.floor(Math.random() * attribute_pool.length - 1), 1)[0];
+        winston.info(util.inspect(new_character, false, null));
+        list_of_characters.push(new_character);
+    }
+    return list_of_characters;
+}
+
 async function generateNames(number, region='', gender = '') {
     var request_url = util.format('http://uinames.com/api/?amount=%d&maxlen=20', number);
     if(region){
