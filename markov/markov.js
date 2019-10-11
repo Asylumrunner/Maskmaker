@@ -17,6 +17,20 @@ module.exports.runChain = function runChain(markovChain, length) {
     var generatedTerm = "";
     var priorIndex = 0;
     
+    for(var i = 0; i < length; i++){
+        var randomNumber = Math.random()
+        var runningTotal = 0.0;
+        for(var j = 0; j < 27; j++){
+            runningTotal += markovChain[priorIndex][j];
+            if(runningTotal >= randomNumber){
+                priorIndex = j+1;
+                generatedTerm += arrayIndexToChar(j);
+                break;
+            }
+        }
+    }
+
+    return generatedTerm;
 }
 
 function convertSumsToPercentages(sumsChain) {
