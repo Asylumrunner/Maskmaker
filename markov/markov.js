@@ -5,9 +5,9 @@ module.exports.generateMarkovChain = function generateMarkovChain(terms) {
     var sumsChain = createEmptyChain();
     terms.forEach((term) => {
         correctedTerm = term.toLowerCase();
-        sumsChain[0][charToArrayIndex(correctedTerm[0])]++;
+        sumsChain[0][charToArrayIndex(correctedTerm[0]) - 1]++;
         for(var i = 0; i < term.length - 1; i ++){
-            sumsChain[charToArrayIndex(correctedTerm[i])][charToArrayIndex(correctedTerm[i+1])]++;
+            sumsChain[charToArrayIndex(correctedTerm[i])][charToArrayIndex(correctedTerm[i+1]) - 1]++;
         }
     });
     return convertSumsToPercentages(sumsChain);
@@ -33,6 +33,30 @@ module.exports.runChain = function runChain(markovChain, length) {
     return generatedTerm;
 }
 
+module.exports.testChain = function testChain(markovChain) {
+    try {
+        var validChain = true;
+        markovChain.forEach((row) => {
+            sum = 0;
+            row.forEach((value) => {
+                if(Number.isNaN(value)){
+                    validChain = false;
+                }
+                sum += value;
+            })
+            if(Math.abs(sum - 1) > 0.01){
+                validChain = false;
+            }
+        })
+        return validChain;
+        //TODO: Flatten these function calls to allow for easy breaking
+    }
+    catch (err){
+        winston.error("Exception while validating markov chain: " + err);
+        return false;
+    }
+}
+
 function convertSumsToPercentages(sumsChain) {
     var finalChain = createEmptyChain();
     for (var i = 0; i < sumsChain.length; i++ ){
@@ -45,14 +69,15 @@ function convertSumsToPercentages(sumsChain) {
 }
 function createEmptyChain() {
     chain = [];
-    for(var i = 0; i < 28; i++){
+    for(var i = 0; i < 27; i++){
         chain.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }
     return chain;
 }
 
 function charToArrayIndex(character){
-    return character.charCodeAt(0) - 96;
+    var val = character.charCodeAt(0) - 96;
+    return val;
 }
 
 function arrayIndexToChar(index){

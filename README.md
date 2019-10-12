@@ -26,6 +26,8 @@ What would be really *really* cool is the ability to provide a reasonably large 
 ## To-Do List
 * Allow custom names to be provided to choose from
 * Allow custom names to be provided to generate a Markov Chain to generate names
+* Store Markov Chains in a database because dear god those things are hideously ugly to manipulate
+* Implement database wiper
 * Implement tests
 * Convert API to run in AWS Lambda
 * Deploy application to Lambda

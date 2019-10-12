@@ -11,17 +11,28 @@ router.get('/', (req, res) => {
             .max(300)
             .unique()
             .required()
-            .items(Joi.string())
+            .items(Joi.string().alphanum().lowercase().trim())
     });
     const { error, value } = schema.validate(req.body);
     if (error){
         winston.error(error);
         res.status(400).send(error.details[0].message);
     }
-    const chain = markovGenerator.generateMarkovChain(req.body.examples);
-    res.send(chain);
+    else{
+        const chain = markovGenerator.generateMarkovChain(req.body.examples);
+        if(markovGenerator.testChain(chain)){
+            res.send(chain);
+        }
+        else{
+            winston.error("The generated test data was incomplete, and yielded an incomplete chain");
+            res.status(400).send("The generated test data was incomplete, and yielded an incomplete chain");
+            //TODO: Provide a more helpful error message about what was wrong
+        }
+    }
 })
 
-//TODO: sanitize individual names (alpha only, lowercase)
+router.get('/createnames', (req, res) => {
+    const schema = Joi.object()
+})
 
 module.exports = router;
