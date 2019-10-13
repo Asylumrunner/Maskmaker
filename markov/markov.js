@@ -81,5 +81,5 @@ function charToArrayIndex(character){
 }
 
 function arrayIndexToChar(index){
-    return String.fromCharCode(index + 96);
+    return String.fromCharCode(index + 97);
 }
