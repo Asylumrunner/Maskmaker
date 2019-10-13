@@ -24,8 +24,6 @@ An additional payload feature I would like to include is the ability to provide 
 What would be really *really* cool is the ability to provide a reasonably large set of example names and have the API generate a Markov Chain based on them, allowing it to generate unique names conforming to a standard defined by the user. To circumvent repeat calculation, I would probably allow users to, if they so choose, save their name set to a database, or more specifically the Markov Chain modeling their name set, and allow it to be retrieved, such that it doesn't need to be recalculated.
 
 ## To-Do List
-* Allow custom names to be provided to choose from
-* Allow custom names to be provided to generate a Markov Chain to generate names
 * Store Markov Chains in a database because dear god those things are hideously ugly to manipulate
 * Implement database wiper
 * Implement tests

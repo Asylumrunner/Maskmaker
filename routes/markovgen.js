@@ -61,7 +61,8 @@ router.get('/createnames', (req, res) => {
         var resultsList = []
         for(var i = 0; i < numberOfNames; i++){
             var generatedLength = req.body.minlength + Math.round(Math.random() * (req.body.maxlength - req.body.minlength));
-            resultsList.push(markovGenerator.runChain(req.body.chain, generatedLength));
+            var uncapitalizedTerm = markovGenerator.runChain(req.body.chain, generatedLength);
+            resultsList.push(uncapitalizedTerm.charAt(0).toUpperCase() + uncapitalizedTerm.slice(1));
         }
         res.send(resultsList);
     }
