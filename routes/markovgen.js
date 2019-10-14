@@ -4,7 +4,7 @@ const router = express.Router();
 const markovGenerator = require('../markov/markov');
 const Joi = require('@hapi/joi');
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
     const schema = Joi.object({
         examples: Joi.array()
             .min(20)
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     }
 })
 
-router.get('/createnames', (req, res) => {
+router.post('/createnames', (req, res) => {
     const schema = Joi.object({
         chain: Joi.array()
             .required(),

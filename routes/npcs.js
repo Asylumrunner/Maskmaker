@@ -4,7 +4,7 @@ const router = express.Router();
 const npcCreator = require('../generation/generate');
 const Joi = require('@hapi/joi');
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
     const schema = Joi.object({
         number: Joi.number()
             .min(1)
@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
 
 })
 
-router.get('/custom-names', (req, res) => {
+router.post('/custom-names', (req, res) => {
     const schema = Joi.object({
         number: Joi.number()
             .min(1)
