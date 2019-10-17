@@ -65,7 +65,7 @@ router.post('/createnames', (req, res) => {
             var uncapitalizedTerm = markovGenerator.runChain(req.body.chain, generatedLength);
             resultsList.push(uncapitalizedTerm.charAt(0).toUpperCase() + uncapitalizedTerm.slice(1));
         }
-        res.send(resultsList);
+        res.send({names: resultsList});
     }
     else{
         winston.error("The provided Markov Chain is invalid.");

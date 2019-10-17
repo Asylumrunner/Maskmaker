@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
     npcCreator.generate(req.body.number, reg, gend, atts).catch((err) => {
         res.status(500);
     }).then((response) => {
-        res.send(response);
+        res.send({characters: response});
     });
 
 })
@@ -64,7 +64,7 @@ router.post('/custom-names', (req, res) => {
     npcCreator.generateWithCustomNames(req.body.number, req.body.names, atts).catch((err) => {
         res.status(500);
     }).then((response) => {
-        res.send(response);
+        res.send({characters: response});
     });
 })
 
