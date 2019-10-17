@@ -42,11 +42,12 @@ router.post('/createnames', (req, res) => {
         maxlength: Joi.number()
             .required()
             .min(2)
-            .max(40)
+            .max(20)
             .greater(Joi.ref('minlength')),
         count: Joi.number()
             .min(1)
             .max(10)
+            .required()
     });
     const {error, value} = schema.validate(req.body);
     if (error){

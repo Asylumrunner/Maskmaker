@@ -24,6 +24,99 @@ The last aspect of a character are approximate statistical attributes. Most RPGs
 
 ## Endpoint Documentation
 
+#### GET /api/health
+Health endpoint. Returns "Application is up and healthy!"
+
+#### POST /api/npcs
+Generate random NPCs using a pool of arbitrary names and traits, and randomly assigned attributes
+
+##### Request Template:
+{
+    number (int): REQUIRED - a number of characters to generate between 1 and 500,
+    region (string): A region to use for the names generated. A list of usable regions can be found in the [uinames documentation](https://github.com/thm/uinames/blob/master/uinames.com/api/names.json). Leaving default will include all regions in name generation,
+    gender (string): The gender of character to generate. Values are male and female. Leaving default will use all names,
+    attributes ([string]): An array of strings representing the attributes which will be generated for each character. Can be a list between 1 and 12 strings. Leaving default will use the D&D attribute block of Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
+}
+
+##### Response Template:
+[
+    {
+        "name": string,
+        "traits": [
+            "trait 1",
+            "trait 2",
+            "trait 3"
+        ],
+        "attribute": [
+            "attribute 1": "value",
+            "attribute 2": "value",
+            ...
+            "attribute n": "value"
+        ]
+    }
+]
+
+
+#### POST /api/npcs/customnames
+Generate random NPCs using a pool of names provided by the user, using arbitrary traits and randomly assigned attributes
+
+##### Request Template:
+{
+    number (int): REQUIRED - a number of characters to generate between 1 and 500,
+    names ([string]): REQUIRED - a list of pregenerated names to use to generate the characters. You must provide at least as many names as number of characters to generate
+    attributes ([string]): An array of strings representing the attributes which will be generated for each character. Can be a list between 1 and 12 strings. Leaving default will use the D&D attribute block of Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
+}
+
+##### Response Template:
+[
+    {
+        "name": string,
+        "traits": [
+            "trait 1",
+            "trait 2",
+            "trait 3"
+        ],
+        "attribute": [
+            "attribute 1": "value",
+            "attribute 2": "value",
+            ...
+            "attribute n": "value"
+        ]
+    }
+]
+
+
+#### POST /api/markov
+Take a list of example names and use them to generate a Markov Chain, which can be used to generate new names
+
+##### Request Template:
+{
+    examples([string]): REQUIRED - a list of names to generate the Markov Chain with. Must contain between 20 and 300 unique names. Each individual name must consist only of alphanumeric characters
+}
+
+##### Response Template:
+A valid Markov Chain (see below)
+
+#### POST /api/markov/createnames
+Take a list of example names and use them to generate a Markov Chain, which can be used to generate new names
+
+##### Request Template:
+{
+    chain ([[float]]): REQUIRED - A valid Markov Chain (see below),
+    minlength (int): REQUIRED - The minimum length of name to generate. Must be an integer between 1 and 20,
+    maxlength (int): REQUIRED - The maximum length of name to generate. Must be greater than minlength, and a length between 2 and 20,
+    count (int): REQUIRED -  The number of names to generate. Must be between 1 and 10.
+}
+
+##### Response Template:
+[
+    "name1",
+    "name2",
+    "name3",
+    ...
+    "nameN"
+]
+
 ### Valid Markov Chains
 
 ## Additional Scope
