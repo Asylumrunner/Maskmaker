@@ -31,7 +31,7 @@ Health endpoint. Returns "Application is up and healthy!"
 Generate random NPCs using a pool of arbitrary names and traits, and randomly assigned attributes
 
 ##### Request Template:
-```json
+```
 {
     number (int): REQUIRED - a number of characters to generate between 1 and 500,
     region (string): A region to use for the names generated. A list of usable regions can be found in the [uinames documentation](https://github.com/thm/uinames/blob/master/uinames.com/api/names.json). Leaving default will include all regions in name generation,
@@ -41,7 +41,7 @@ Generate random NPCs using a pool of arbitrary names and traits, and randomly as
 ```
 
 ##### Response Template:
-```json
+```
 [
     {
         "name": string,
@@ -65,7 +65,7 @@ Generate random NPCs using a pool of arbitrary names and traits, and randomly as
 Generate random NPCs using a pool of names provided by the user, using arbitrary traits and randomly assigned attributes
 
 ##### Request Template:
-```json
+```
 {
     number (int): REQUIRED - a number of characters to generate between 1 and 500,
     names ([string]): REQUIRED - a list of pregenerated names to use to generate the characters. You must provide at least as many names as number of characters to generate
@@ -74,7 +74,7 @@ Generate random NPCs using a pool of names provided by the user, using arbitrary
 ```
 
 ##### Response Template:
-```json
+```
 [
     {
         "name": string,
@@ -98,7 +98,7 @@ Generate random NPCs using a pool of names provided by the user, using arbitrary
 Take a list of example names and use them to generate a Markov Chain, which can be used to generate new names
 
 ##### Request Template:
-```json
+```
 {
     examples([string]): REQUIRED - a list of names to generate the Markov Chain with. Must contain between 20 and 300 unique names. Each individual name must consist only of alphanumeric characters
 }
@@ -111,7 +111,7 @@ A valid Markov Chain (see below)
 Take a list of example names and use them to generate a Markov Chain, which can be used to generate new names
 
 ##### Request Template:
-```json
+```
 {
     chain ([[float]]): REQUIRED - A valid Markov Chain (see below),
     minlength (int): REQUIRED - The minimum length of name to generate. Must be an integer between 1 and 20,
@@ -121,7 +121,7 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 ```
 
 ##### Response Template:
-```json
+```
 [
     "name1",
     "name2",
