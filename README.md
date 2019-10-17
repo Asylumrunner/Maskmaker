@@ -132,6 +132,19 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 ```
 
 ### Valid Markov Chains
+To understand the fundamentals of what a Markov Chain is and how it works, the (Brilliant)[https://brilliant.org/wiki/markov-chains/] page on them is an excellent introduction. The rest of this section is written assuming you understand the concept of a Markov Chain.
+
+For the purposes of this API, a valid Markov Chain is a 27 by 26 array of arrays, the axes representing the letters of the alphabet. The prior states list is one longer than the list of future states to account for the Starting State, representing the probability of a given letter being the first letter of a name.
+
+For any given cell in the Markov Chain `chain[x][y]`, the value of the cell is the probability of the letter represented by index y following the letter represented by index [x]. So, for example:
+
+* `chain[0][0]` is the probability of the first letter of a word being A
+* `chain[1][0]` is the probability of an A being followed by another A
+* `chain[17][20]` is the probability of a Q being followed by a U
+
+Because of the existence of the Starting State, it should be noted that the index-to-letter mapping varies by 1 between the priors and the future state.
+
+Because these cells contain probabilities, the sum of all values in a column should sum to 1 (it actually can be more than 1, the code will automatically clamp the last value in the column to whatever value makes it sum to 1).
 
 ## Additional Scope
 While programmatic handling of the Markov Chain objects is simple, manually using the Markov Chain endpoints is kind of a pain. As both a potential for further learning and to increase usability, I think it would be useful to be able to store those chains in a database. Then, when I want to use a Markov Chain to generate names, I can simply provide a database key as an argument to the API and have it withdraw it manually. This has a few key advantages:
@@ -144,6 +157,5 @@ To implement this, I'd probably want to avoid any significant performance hits t
 Further optimization could be done by caching Markov Chains retrieved from said database, but until this API is used by more people than, well, me, that degree of optimization feels like overkill. Maybe as a learning exercise.
 
 ## To-Do List
-* Store Markov Chains in a database because dear god those things are hideously ugly to manipulate
-* Implement database wiper
-* Implement tests
+* Markov Chain clamping
+* Write unit tests
