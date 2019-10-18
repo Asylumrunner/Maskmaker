@@ -42,22 +42,24 @@ Generate random NPCs using a pool of arbitrary names and traits, and randomly as
 
 ##### Response Template:
 ```
-[
-    {
-        "name": string,
-        "traits": [
-            "trait 1",
-            "trait 2",
-            "trait 3"
-        ],
-        "attribute": [
-            "attribute 1": "value",
-            "attribute 2": "value",
-            ...
-            "attribute n": "value"
-        ]
-    }
-]
+{
+    "characters": [
+        {
+            "name": string,
+            "traits": [
+                "trait 1",
+                "trait 2",
+                "trait 3"
+            ],
+            "attribute": [
+                "attribute 1": "value",
+                "attribute 2": "value",
+                ...
+                "attribute n": "value"
+            ]
+        }
+    ]
+}
 ```
 
 
@@ -75,22 +77,24 @@ Generate random NPCs using a pool of names provided by the user, using arbitrary
 
 ##### Response Template:
 ```
-[
-    {
-        "name": string,
-        "traits": [
-            "trait 1",
-            "trait 2",
-            "trait 3"
-        ],
-        "attribute": [
-            "attribute 1": "value",
-            "attribute 2": "value",
-            ...
-            "attribute n": "value"
-        ]
-    }
-]
+{
+    "characters": [
+        {
+            "name": string,
+            "traits": [
+                "trait 1",
+                "trait 2",
+                "trait 3"
+            ],
+            "attribute": [
+                "attribute 1": "value",
+                "attribute 2": "value",
+                ...
+                "attribute n": "value"
+            ]
+        }
+    ]
+}
 ```
 
 
@@ -122,13 +126,15 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 
 ##### Response Template:
 ```
-[
-    "name1",
-    "name2",
-    "name3",
-    ...
-    "nameN"
-]
+{
+    "names": [
+        "name1",
+        "name2",
+        "name3",
+        ...
+        "nameN"
+    ]
+}
 ```
 
 ### Valid Markov Chains

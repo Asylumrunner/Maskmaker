@@ -61,12 +61,18 @@ function convertSumsToPercentages(sumsChain) {
     var finalChain = createEmptyChain();
     for (var i = 0; i < sumsChain.length; i++ ){
         var columnTotal = sumsChain[i].reduce((a, b) => {return a + b});
-        for(var j = 0; j < sumsChain[i].length; j ++){
+        for(var j = 0; j < sumsChain[i].length; j++){
             finalChain[i][j] = sumsChain[i][j]/columnTotal;
+            if(j == sumsChain[i].length - 1){
+                var diff = 1 - sumsChain[i].reduce((x, y) => {return x + y}, 0);
+                finalChain[i][j] += diff;
+            }
         }
     }
     return finalChain;
 }
+
+
 function createEmptyChain() {
     chain = [];
     for(var i = 0; i < 27; i++){
