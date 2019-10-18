@@ -42,11 +42,11 @@ module.exports.testChain = function testChain(markovChain) {
                     return false;
                 }
                 sum += markovChain[i][j];
-            })
+            }
             if(Math.abs(sum - 1) > 0.01){
                 return false;
             }
-        })
+        }
         return true;
     }
     catch (err){
