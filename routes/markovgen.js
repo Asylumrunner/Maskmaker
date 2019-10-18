@@ -34,7 +34,15 @@ router.post('/', (req, res) => {
 router.post('/createnames', (req, res) => {
     const schema = Joi.object({
         chain: Joi.array()
-            .required(),
+            .required()
+            .custom((value, helpers) => {
+                if(!markovGenerator.testChain(value)){
+                    return helpers.error("Markov Chain provided is invalid")
+                }
+                else {
+                    return value;
+                }
+            }),
         minlength: Joi.number()
             .required()
             .min(1)
@@ -55,23 +63,14 @@ router.post('/createnames', (req, res) => {
         res.status(400).send(error.details[0].message);
     }
 
-    const chainValid = markovGenerator.testChain(req.body.chain);
-    if(chainValid) {
-        //Integrate this logic into Joi with any.custom()
-        const numberOfNames = (req.body.hasOwnProperty('count')) ? req.body.count : 1;
-        var resultsList = []
-        for(var i = 0; i < numberOfNames; i++){
-            var generatedLength = req.body.minlength + Math.round(Math.random() * (req.body.maxlength - req.body.minlength));
-            var uncapitalizedTerm = markovGenerator.runChain(req.body.chain, generatedLength);
-            resultsList.push(uncapitalizedTerm.charAt(0).toUpperCase() + uncapitalizedTerm.slice(1));
-        }
-        res.send({names: resultsList});
+    const numberOfNames = (req.body.hasOwnProperty('count')) ? req.body.count : 1;
+    var resultsList = []
+    for(var i = 0; i < numberOfNames; i++){
+        var generatedLength = req.body.minlength + Math.round(Math.random() * (req.body.maxlength - req.body.minlength));
+        var uncapitalizedTerm = markovGenerator.runChain(req.body.chain, generatedLength);
+        resultsList.push(uncapitalizedTerm.charAt(0).toUpperCase() + uncapitalizedTerm.slice(1));
     }
-    else{
-        winston.error("The provided Markov Chain is invalid.");
-        res.status(400).send("The provided Markov Chain is invalid");
-    }
-
+    res.send({names: resultsList});
 
 })
 
