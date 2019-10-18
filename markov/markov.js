@@ -62,7 +62,7 @@ function convertSumsToPercentages(sumsChain) {
         for(var j = 0; j < sumsChain[i].length; j++){
             finalChain[i][j] = sumsChain[i][j]/columnTotal;
             if(j == sumsChain[i].length - 1){
-                var diff = 1 - sumsChain[i].reduce((x, y) => {return x + y}, 0);
+                var diff = 1 - finalChain[i].reduce((x, y) => {return x + y}, 0);
                 finalChain[i][j] += diff;
             }
         }

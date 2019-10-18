@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         const chain = markovGenerator.generateMarkovChain(req.body.examples);
         if(markovGenerator.testChain(chain)){
             res.send(chain);
-        }
+          }
         else{
             winston.error("The generated test data was incomplete, and yielded an incomplete chain");
             res.status(400).send("The generated test data was incomplete, and yielded an incomplete chain");
