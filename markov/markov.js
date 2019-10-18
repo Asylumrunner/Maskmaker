@@ -35,21 +35,19 @@ module.exports.runChain = function runChain(markovChain, length) {
 
 module.exports.testChain = function testChain(markovChain) {
     try {
-        var validChain = true;
-        markovChain.forEach((row) => {
+        for(var i = 0; i < markovChain.length; i++){
             sum = 0;
-            row.forEach((value) => {
-                if(Number.isNaN(value)){
-                    validChain = false;
+            for(var j = 0; j < markovChain[i].length; j++){
+                if(Number.isNaN(markovChain[i][j])){
+                    return false;
                 }
-                sum += value;
+                sum += markovChain[i][j];
             })
             if(Math.abs(sum - 1) > 0.01){
-                validChain = false;
+                return false;
             }
         })
-        return validChain;
-        //TODO: Flatten these function calls to allow for easy breaking
+        return true;
     }
     catch (err){
         winston.error("Exception while validating markov chain: " + err);
