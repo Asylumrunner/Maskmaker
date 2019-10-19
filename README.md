@@ -2,13 +2,13 @@
 A Node.js API for generating non-player characters for tabletop role-playing games
 
 ## Table of Contents
-1. Overview
-2. Tech Stack
-3. Character Generation
-4. Endpoint Documentation
-5. Additional Scope
-6. Deployment Notes
-7. To-Do List
+1. [Overview](https://github.com/Asylumrunner/Maskmaker#overview)
+2. [Tech Stack](https://github.com/Asylumrunner/Maskmaker#tech-stack)
+3. [Character Generation](https://github.com/Asylumrunner/Maskmaker#character-generation)
+4. [Endpoint Documentation](https://github.com/Asylumrunner/Maskmaker#endpoint-documentation)
+5. [Additional Scope](https://github.com/Asylumrunner/Maskmaker#additional-scope)
+6. [Deployment Notes](https://github.com/Asylumrunner/Maskmaker#deployment-notes)
+7. [To-Do List](https://github.com/Asylumrunner/Maskmaker#to-do-list)
 
 ## Overview
 I run a number of tabletop RPGs for a variety of groups, and one of the hardest parts for me is coming up with distinct personalities for non-player characters (NPCs) on the spot. So, I decided to write myself an application that could automatically generate NPCs, at least in the broad strokes, on my behalf.
