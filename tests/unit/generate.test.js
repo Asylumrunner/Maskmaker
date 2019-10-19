@@ -6,6 +6,7 @@ beforeAll(() => {
     require('../../setup/logging')();
 });
 
+// TODO: Optimize a lot of this shared code between tests. Definitely programatize (?) the attribute checking because yeesh
 describe("Generation", () => {
     test("Generate Name Unit Test", async () => {
         generateNames = generateNPCs.__get__('generateNames');

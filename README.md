@@ -162,6 +162,14 @@ To implement this, I'd probably want to avoid any significant performance hits t
 
 Further optimization could be done by caching Markov Chains retrieved from said database, but until this API is used by more people than, well, me, that degree of optimization feels like overkill. Maybe as a learning exercise.
 
+This API also has some dormant frameworks for creating authorization endpoints. While I could see that being useful if I start dealing with database management, maybe setting up some admin endpoints to do things like clear the database or view saved Markov chains, for now it isn't *aggressively* useful, so I'm going to leave it blank.
+
+## Deployment Notes
+This project has been set up to deploy to AWS fairly simply using Claudia.js. There are NPM scripts set up to deploy to your own AWS account with `npm setup`, as well as update it with `npm deploy`. Make sure you have [Claudia.js set up](https://claudiajs.com/tutorials/installing.html), and lemme know in an issue if something is wonky.
+
+To run locally, just run index.js with an environment variable called ENVIRONMENT set to 'local'.
+
 ## To-Do List
-* Markov Chain clamping
-* Write unit tests
+* Write unit tests for Markov chain generation
+* Clean up the NPC generation unit tests
+* Write functional tests that actually hit the API
