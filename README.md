@@ -35,12 +35,12 @@ Generate random NPCs using a pool of arbitrary names and traits, and randomly as
 {
     number (int): REQUIRED - a number of characters to generate between 1 and 500,
     region (string): A region to use for the names generated. A list of usable regions can be found in the [uinames documentation](https://github.com/thm/uinames/blob/master/uinames.com/api/names.json). Leaving default will include all regions in name generation,
-    gender (string): The gender of character to generate. Values are male and female. Leaving default will use all names,
+    gender (string): The uinames API used to generate names separates its names into male and female. This value can be given to only generate names from one of those subsets. Valid options are male and female. Leaving default will use both.
     attributes ([string]): An array of strings representing the attributes which will be generated for each character. Can be a list between 1 and 12 strings. Leaving default will use the D&D attribute block of Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
 }
 ```
 
-##### Response Template:
+##### Response Body Template:
 ```
 {
     "characters": [
@@ -75,7 +75,7 @@ Generate random NPCs using a pool of names provided by the user, using arbitrary
 }
 ```
 
-##### Response Template:
+##### Response Body Template:
 ```
 {
     "characters": [
@@ -108,7 +108,7 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 }
 ```
 
-##### Response Template:
+##### Response Body Template:
 A valid Markov Chain (see below)
 
 #### POST /api/markov/createnames
@@ -124,7 +124,7 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 }
 ```
 
-##### Response Template:
+##### Response Body Template:
 ```
 {
     "names": [
