@@ -138,7 +138,7 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 ```
 
 ### Valid Markov Chains
-To understand the fundamentals of what a Markov Chain is and how it works, the (Brilliant)[https://brilliant.org/wiki/markov-chains/] page on them is an excellent introduction. The rest of this section is written assuming you understand the concept of a Markov Chain.
+To understand the fundamentals of what a Markov Chain is and how it works, the [Brilliant](https://brilliant.org/wiki/markov-chains/) page on them is an excellent introduction. The rest of this section is written assuming you understand the concept of a Markov Chain.
 
 For the purposes of this API, a valid Markov Chain is a 27 by 26 array of arrays, the axes representing the letters of the alphabet. The prior states list is one longer than the list of future states to account for the Starting State, representing the probability of a given letter being the first letter of a name.
 
@@ -165,7 +165,7 @@ Further optimization could be done by caching Markov Chains retrieved from said 
 This API also has some dormant frameworks for creating authorization endpoints. While I could see that being useful if I start dealing with database management, maybe setting up some admin endpoints to do things like clear the database or view saved Markov chains, for now it isn't *aggressively* useful, so I'm going to leave it blank.
 
 ## Deployment Notes
-This project has been set up to deploy to AWS fairly simply using Claudia.js. There are NPM scripts set up to deploy to your own AWS account with `npm setup`, as well as update it with `npm deploy`. Make sure you have [Claudia.js set up](https://claudiajs.com/tutorials/installing.html), and lemme know in an issue if something is wonky.
+This project has been set up to deploy to AWS fairly simply using Claudia.js. There are NPM scripts set up to deploy to your own AWS account with `npm run setup`, as well as update it with `npm run deploy`. Make sure you have [Claudia.js set up](https://claudiajs.com/tutorials/installing.html), and lemme know in an issue if something is wonky.
 
 To run locally, just run index.js with an environment variable called ENVIRONMENT set to 'local'.
 
