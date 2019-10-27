@@ -34,6 +34,8 @@ module.exports.runChain = function runChain(markovChain, length) {
 }
 
 module.exports.testChain = function testChain(markovChain) {
+    if(typeof markovChain !== 'object' || markovChain.constructor !== Array) { return false; }
+    if(markovChain.length == 0) { return false; }
     try {
         for(var i = 0; i < markovChain.length; i++){
             sum = 0;
