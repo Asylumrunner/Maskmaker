@@ -72,7 +72,7 @@ Generate random NPCs using a pool of arbitrary names and traits, and randomly as
 ```
 
 
-#### POST /api/npcs/customnames
+#### POST /api/npcs/custom-names
 Generate random NPCs using a pool of names provided by the user, using arbitrary traits and randomly assigned attributes
 
 ##### Request Template:
