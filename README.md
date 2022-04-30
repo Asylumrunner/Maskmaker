@@ -113,12 +113,18 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 ##### Request Template:
 ```
 {
-    examples([string]): REQUIRED - a list of names to generate the Markov Chain with. Must contain between 20 and 300 unique names. Each individual name must consist only of alphanumeric characters
+    examples([string]): REQUIRED - a list of names to generate the Markov Chain with. Must contain between 20 and 300 unique names. Each individual name must consist only of alphanumeric characters,
+    saveChain (boolean): if true, will save the generated markov chain to a DynamoDB database and return a key which can be used in place of the chain. Defaults to false
 }
 ```
 
 ##### Response Body Template:
-A valid Markov Chain (see below)
+```
+{
+    chain: A valid Markov Chain (see below),
+    chainKey: if saveChain was true, a key that can be provided to retrieve the chain in the database. Else null
+}
+```
 
 #### POST /api/markov/createnames
 Take a list of example names and use them to generate a Markov Chain, which can be used to generate new names

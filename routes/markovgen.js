@@ -2,6 +2,7 @@ const express = require('express');
 const winston = require('winston');
 const router = express.Router();
 const markovGenerator = require('../markov/markov');
+const databaseHandler = require('../database/dynamo')
 const Joi = require('@hapi/joi');
 
 router.post('/', (req, res) => {
@@ -11,7 +12,9 @@ router.post('/', (req, res) => {
             .max(300)
             .unique()
             .required()
-            .items(Joi.string().alphanum().lowercase().trim())
+            .items(Joi.string().alphanum().lowercase().trim()),
+        saveChain: Joi.boolean()
+            .default(false)
     });
     const { error, value } = schema.validate(req.body);
     if (error){
@@ -20,14 +23,19 @@ router.post('/', (req, res) => {
     }
     else{
         const chain = markovGenerator.generateMarkovChain(req.body.examples);
-        if(markovGenerator.testChain(chain)){
-            res.send(chain);
-          }
-        else{
+        if(!markovGenerator.testChain(chain)){
             winston.error("The generated test data was incomplete, and yielded an incomplete chain");
             res.status(400).send("The generated test data was incomplete, and yielded an incomplete chain");
             //TODO: Provide a more helpful error message about what was wrong
         }
+
+        if (req.body.saveChain) {
+            var chainKey = databaseHandler.saveChain(chain);
+        }
+        else{
+            var chainKey = null
+        }
+        res.send({chain: chain, chainKey: chainKey});
     }
 })
 

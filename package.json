@@ -23,8 +23,10 @@
   "homepage": "https://github.com/Asylumrunner/Maskmaker#readme",
   "dependencies": {
     "@hapi/joi": "^16.0.1",
+    "aws-sdk": "2.1125.0",
     "aws-serverless-express": "^3.3.6",
     "axios": "^0.21.1",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "rewire": "^4.0.1",
     "unidecode": "^0.1.8",

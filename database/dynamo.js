@@ -1,25 +1,35 @@
 const AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-west-2' })
-const crypto = require('crypto')
+const { v4: uuidv4 } = require('uuid')
 const winston = require('winston')
 const client = new AWS.DynamoDB.DocumentClient()
 const tableName = 'MM-MarkovChains'
 
 module.exports.saveChain = function saveChain(markovChain) {
-    reducedChain = markovChain.reduce( (previousColumn, nextColumn) => previousColumn + 
-        nextColumn.reduce( (previousValue, nextValue) => previousValue + nextValue, ""),
-        ""
-    );
-
-    chainKey = crypto.createHash('md5').update(reducedChain).digestr('hex');
-
+    let chainKey = uuidv4()
+    params = {
+        TableName: tableName,
+        Item: {
+            ChainKey: chainKey,
+            Chain: markovChain
+        }
+    }
+    client.put(params, function(error, data) {
+        if (error) {
+            winston.error("Expection while inserting markov chain into database: " + error);
+            return null;
+        }
+        else {
+            return chainKey;
+        }
+    });
 }
 
 module.exports.retrieveChain = function retrieveChain(chainKey) {
     var params = {
         TableName: tableName,
         Key: {
-            HashKey: chainKey
+            ChainKey: chainKey
         }
     }
 
