@@ -25,7 +25,7 @@
     "@hapi/joi": "^16.0.1",
     "aws-sdk": "2.1125.0",
     "aws-serverless-express": "^3.3.6",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "express": "^4.17.1",
     "rewire": "^4.0.1",
     "util": "^0.12.1",
