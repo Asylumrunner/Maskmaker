@@ -152,6 +152,23 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 }
 ```
 
+#### GET /api/markov/getchain
+Takes a database key as obtained from POSTing to /api/markov and retrieves the associated chain in the database
+
+##### Request Template:
+```
+{
+    chainKey (string): REQUIRED - The UUID key to a Markov Chain stored in the database
+}
+```
+
+##### Response Body Template:
+```
+{
+    "chain": A valid Markov Chain (see below)
+}
+```
+
 ### Valid Markov Chains
 To understand the fundamentals of what a Markov Chain is and how it works, the [Brilliant](https://brilliant.org/wiki/markov-chains/) page on them is an excellent introduction. The rest of this section is written assuming you understand the concept of a Markov Chain.
 

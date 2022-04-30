@@ -16,20 +16,22 @@ module.exports.saveChain = function saveChain(markovChain) {
     }
     client.put(params, function(error, data) {
         if (error) {
-            winston.error("Expection while inserting markov chain into database: " + error);
+            winston.error("Exception while inserting markov chain into database: " + error);
             return null;
         }
         else {
-            return chainKey;
+            winston.info("Markov chain inserted. Chain key: " + chainKey);
         }
     });
+
+    return chainKey;
 }
 
 module.exports.retrieveChain = function retrieveChain(chainKey) {
     var params = {
         TableName: tableName,
         Key: {
-            ChainKey: chainKey
+            "ChainKey": chainKey
         }
     }
 
@@ -39,8 +41,8 @@ module.exports.retrieveChain = function retrieveChain(chainKey) {
             return null;
         }
         else{
-            //deserialize the chain and return it
-            console.log(data);
+            console.log(data.Item.Chain);
+            return data.Item.Chain;
         }
     });
 }
