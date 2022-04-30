@@ -5,29 +5,23 @@ const winston = require('winston')
 const client = new AWS.DynamoDB.DocumentClient()
 const tableName = 'MM-MarkovChains'
 
-module.exports.saveChain = function saveChain(markovChain) {
+module.exports.saveChain = async function saveChain(markovChain) {
     let chainKey = uuidv4()
     params = {
         TableName: tableName,
         Item: {
             ChainKey: chainKey,
             Chain: markovChain
-        }
+        },
+        ReturnValues: "ALL_OLD"
     }
-    client.put(params, function(error, data) {
-        if (error) {
-            winston.error("Exception while inserting markov chain into database: " + error);
-            return null;
-        }
-        else {
-            winston.info("Markov chain inserted. Chain key: " + chainKey);
-        }
-    });
-
+    var request = client.put(params);
+    var result = await request.promise();
+    winston.info("Markov Chain saved in database with key: " + chainKey);
     return chainKey;
 }
 
-module.exports.retrieveChain = function retrieveChain(chainKey) {
+module.exports.retrieveChain = async function retrieveChain(chainKey) {
     var params = {
         TableName: tableName,
         Key: {
@@ -35,14 +29,10 @@ module.exports.retrieveChain = function retrieveChain(chainKey) {
         }
     }
 
-    client.get(params, function(error, data) {
-        if (error) {
-            winston.error("Exception while retrieving markov chain from database: " + error)
-            return null;
-        }
-        else{
-            console.log(data.Item.Chain);
-            return data.Item.Chain;
-        }
-    });
+    var request = client.get(params);
+    var result = await request.promise();
+    winston.info("Markov Chain retrieved from database with key: " + chainKey);
+    console.log(result.Item.Chain);
+    return result.Item.Chain;
+
 }

@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     }
 })
 
-router.post('/getchain', (req, res) => {
+router.post('/getchain', async function(req, res) {
     const schema = Joi.object({
         chainKey: Joi.string()
             .required()
@@ -51,7 +51,7 @@ router.post('/getchain', (req, res) => {
         console.log('buttass');
         res.status(400).send(error.details[0].message);
     }
-    var markovChain = databaseHandler.retrieveChain(req.body.chainKey);
+    var markovChain = await databaseHandler.retrieveChain(req.body.chainKey);
     res.send({'chain': markovChain});
 })
 
