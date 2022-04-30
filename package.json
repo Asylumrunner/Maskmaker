@@ -26,10 +26,8 @@
     "aws-sdk": "2.1125.0",
     "aws-serverless-express": "^3.3.6",
     "axios": "^0.21.1",
-    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "rewire": "^4.0.1",
-    "unidecode": "^0.1.8",
     "util": "^0.12.1",
     "winston": "^3.2.1"
   },

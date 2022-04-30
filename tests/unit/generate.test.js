@@ -14,7 +14,7 @@ describe("Generation", () => {
         expect(names).toHaveLength(5);
         expect(names).not.toContain(null);
 
-        const regional_names = await generateNames(5, 'Korea');
+        const regional_names = await generateNames(5, 'BR');
         expect(regional_names).toHaveLength(5);
         expect(regional_names).not.toContain(null);
 

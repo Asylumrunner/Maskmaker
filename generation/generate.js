@@ -1,7 +1,6 @@
 const winston = require('winston');
 const axios = require('axios');
 const util = require('util');
-const unidecode = require('unidecode');
 const traits = require('./traits');
 
 module.exports.generate = async function generateCharacters(number, region = '', gender = '', user_attributes = []) {
@@ -53,32 +52,27 @@ module.exports.generateWithCustomNames = async function generateCharactersWithCu
 }
 
 async function generateNames(number, region='', gender = '') {
-    var request_url = util.format('http://uinames.com/api/?amount=%d&maxlen=20', number);
+    var request_url = util.format('http://randomuser.me/api/?inc=name&noinfo&results=%d', number);
     if(region){
-        request_url += util.format('&region=%s', region);
+        request_url += util.format('&nat=%s', region);
     }
     if(gender){
         request_url += util.format('&gender=%s', gender);
     }
     try {
         var response = await axios.get(request_url);
+
         if(response.status != 200){
             winston.error("Request to Names API failed");
             throw new Error("Name generation failed");
         }
         var name_list = [];
 
-        //The uinames API does a very stupid thing where if you only ask for a single name
-        //it returns it as a single item, outside of an array. This if statement checks for
-        //that and wraps that single item in an array to ensure proper iteration
-        if(!Array.isArray(response.data)){
-            response.data = [response.data]
-        }
-
-        response.data.forEach((name) => {
-            name_list.push(unidecode(util.format("%s %s", name.name, name.surname)));
+        response.data.results.forEach((result) => {
+            name_list.push(util.format("%s %s", result.name.first, result.name.last));
         })
         winston.info("Names generated");
+        console.log(name_list);
         return name_list;
     }
     catch (ex) {
