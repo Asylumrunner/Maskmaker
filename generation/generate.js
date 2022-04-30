@@ -72,7 +72,6 @@ async function generateNames(number, region='', gender = '') {
             name_list.push(util.format("%s %s", result.name.first, result.name.last));
         })
         winston.info("Names generated");
-        console.log(name_list);
         return name_list;
     }
     catch (ex) {
