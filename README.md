@@ -211,13 +211,6 @@ Because of the existence of the Starting State, it should be noted that the inde
 Because these cells contain probabilities, the sum of all values in a column should sum to 1 (it actually can be more than 1, the code will automatically clamp the last value in the column to whatever value makes it sum to 1).
 
 ## Additional Scope
-While programmatic handling of the Markov Chain objects is simple, manually using the Markov Chain endpoints is kind of a pain. As both a potential for further learning and to increase usability, I think it would be useful to be able to store those chains in a database. Then, when I want to use a Markov Chain to generate names, I can simply provide a database key as an argument to the API and have it withdraw it manually. This has a few key advantages:
-* As previously mentioned, it makes building payloads for the Markov name generation endpoint easier. You just need to provide a key and some database credentials instead of a 27 x 26 2D array
-* I only need to validate the chain once, when I insert it into the database. I can assume anything I pull out has already been validated
-* I can use the same chain over and over again over a long period of time, conducive to RPG play (a single RPG campaign can take years)
-
-To implement this, I'd probably want to avoid any significant performance hits to the API that I can. So, when I generate a Markov Chain, I'd probably want to post it somewhere (probably an S3 bucket?) for another Lambda function to pick up and process without delaying the API execution time any further.
-
 Further optimization could be done by caching Markov Chains retrieved from said database, but until this API is used by more people than, well, me, that degree of optimization feels like overkill. Maybe as a learning exercise.
 
 This API also has some dormant frameworks for creating authorization endpoints. While I could see that being useful if I start dealing with database management, maybe setting up some admin endpoints to do things like clear the database or view saved Markov chains, for now it isn't *aggressively* useful, so I'm going to leave it blank.
