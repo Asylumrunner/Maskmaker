@@ -22,17 +22,16 @@ module.exports.saveChain = async function saveChain(markovChain) {
 }
 
 module.exports.retrieveChain = async function retrieveChain(chainKey) {
+    console.log(chainKey)
     var params = {
         TableName: tableName,
         Key: {
-            "ChainKey": chainKey
+            ChainKey: chainKey
         }
     }
 
     var request = client.get(params);
     var result = await request.promise();
     winston.info("Markov Chain retrieved from database with key: " + chainKey);
-    console.log(result.Item.Chain);
     return result.Item.Chain;
-
 }

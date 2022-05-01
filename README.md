@@ -127,12 +127,38 @@ Take a list of example names and use them to generate a Markov Chain, which can 
 ```
 
 #### POST /api/markov/createnames
-Take a list of example names and use them to generate a Markov Chain, which can be used to generate new names
+Take a Markov Chain and use it to generate new names
 
 ##### Request Template:
 ```
 {
     chain ([[float]]): REQUIRED - A valid Markov Chain (see below),
+    minlength (int): REQUIRED - The minimum length of name to generate. Must be an integer between 1 and 20,
+    maxlength (int): REQUIRED - The maximum length of name to generate. Must be greater than minlength, and a length between 2 and 20,
+    count (int): REQUIRED -  The number of names to generate. Must be between 1 and 10.
+}
+```
+
+##### Response Body Template:
+```
+{
+    "names": [
+        "name1",
+        "name2",
+        "name3",
+        ...
+        "nameN"
+    ]
+}
+```
+
+#### POST /api/markov/createnameskey
+Take a database key associated with a Markov Chain, retrieve it, and use it to generate new names
+
+##### Request Template:
+```
+{
+    chainKey (string): REQUIRED - A valid UUID associated with a Markov Chain in the database,
     minlength (int): REQUIRED - The minimum length of name to generate. Must be an integer between 1 and 20,
     maxlength (int): REQUIRED - The maximum length of name to generate. Must be greater than minlength, and a length between 2 and 20,
     count (int): REQUIRED -  The number of names to generate. Must be between 1 and 10.
