@@ -7,6 +7,10 @@ const tableName = 'MM-MarkovChains'
 
 module.exports.saveChain = async function saveChain(markovChain) {
     let chainKey = uuidv4()
+    let response = {
+        key: chainKey,
+        err: null
+    }
     params = {
         TableName: tableName,
         Item: {
@@ -15,14 +19,24 @@ module.exports.saveChain = async function saveChain(markovChain) {
         },
         ReturnValues: "ALL_OLD"
     }
-    var request = client.put(params);
-    var result = await request.promise();
-    winston.info("Markov Chain saved in database with key: " + chainKey);
-    return chainKey;
+
+    try {
+        var request = client.put(params);
+        var result = await request.promise();
+        winston.info("Markov Chain saved in database with key: " + chainKey);
+    }
+    catch(error) {
+        response.err = error;
+    }
+
+    return response;
 }
 
 module.exports.retrieveChain = async function retrieveChain(chainKey) {
-    console.log(chainKey)
+    let response = {
+        chain: null,
+        err: null
+    }
     var params = {
         TableName: tableName,
         Key: {
@@ -30,8 +44,15 @@ module.exports.retrieveChain = async function retrieveChain(chainKey) {
         }
     }
 
-    var request = client.get(params);
-    var result = await request.promise();
-    winston.info("Markov Chain retrieved from database with key: " + chainKey);
-    return result.Item.Chain;
+    try {
+        var request = client.get(params);
+        var result = await request.promise();
+        winston.info("Markov Chain retrieved from database with key: " + chainKey);
+        response.chain = result;
+    }
+    catch(error) {
+        response.err = error;
+    }
+
+    return response;
 }

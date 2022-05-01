@@ -31,7 +31,14 @@ router.post('/', async function(req, res) {
         }
 
         if (req.body.saveChain) {
-            var chainKey = await databaseHandler.saveChain(chain);
+            const {key, err} = await databaseHandler.saveChain(chain);
+            if (err) {
+                winston.error(err);
+                res.status(500).send("Saving of Markov Chain to the database failed");
+            }
+            else {
+                var chainKey = key;
+            }
         }
         else{
             var chainKey = null
@@ -48,11 +55,14 @@ router.post('/getchain', async function(req, res) {
     const {error, value} = schema.validate(req.body);
     if (error){
         winston.error(error);
-        console.log('buttass');
         res.status(400).send(error.details[0].message);
     }
-    var markovChain = await databaseHandler.retrieveChain(req.body.chainKey);
-    res.send({'chain': markovChain});
+    const {chain, err} = await databaseHandler.retrieveChain(req.body.chainKey);
+    if (err){
+        winston.error(err);
+        res.status(400).send(err);
+    }
+    res.send({'chain': chain});
 })
 
 router.post('/createnames', (req, res) => {
