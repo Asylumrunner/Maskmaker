@@ -7,7 +7,7 @@
     "test": "jest",
     "first-time-deploy": "claudia create --handler lambda.handler --deploy-proxy-api --region us-east-1 --profile claudia",
     "setup": "npm-run-all test first-time-deploy",
-    "update-to-aws": "claudia update --profile claudia",
+    "update-to-aws": "claudia update --runtime nodejs16.x --profile claudia",
     "deploy": "npm-run-all test update-to-aws"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "rewire": "^4.0.1",
     "util": "^0.12.1",
+    "uuid": "^8.3.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
